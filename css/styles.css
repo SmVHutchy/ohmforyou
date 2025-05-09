@@ -45,12 +45,20 @@ header {
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease-out;
 }
 
 header img {
     width: 80px;
     margin-bottom: 20px;
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+header img:hover {
+    transform: scale(1.05);
 }
 
 /* Navigation Styles mit Glassmorphism */
@@ -63,6 +71,25 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+nav.scrolled {
+    padding: 10px 0;
+    background: rgba(26, 26, 26, 0.95);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    margin: 0 15px;
 }
 
 nav ul li a {
@@ -74,6 +101,23 @@ nav ul li a {
     transition: all 0.3s ease;
     padding: 8px 16px;
     border-radius: 8px;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #FF4C4C;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
 }
 
 nav ul li a:hover {
@@ -101,6 +145,18 @@ nav ul li a:hover {
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
 }
 
+/* Fade-in Animation */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* CTA Button mit Glassmorphism */
 .cta-button {
     background: rgba(255, 76, 76, 0.9);
@@ -115,6 +171,28 @@ nav ul li a:hover {
     transition: all 0.3s ease;
     display: inline-block;
     margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.6s;
+}
+
+.cta-button:hover::before {
+    left: 100%;
 }
 
 .cta-button:hover {
@@ -133,6 +211,7 @@ nav ul li a:hover {
     overflow: hidden;
     margin: 20px auto;
     width: 80%;
+    height: 30px;
 }
 
 .progress-fill {
@@ -141,7 +220,11 @@ nav ul li a:hover {
     padding: 10px 0;
     text-align: center;
     font-weight: bold;
-    transition: width 1s ease-in-out;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Team Member Cards mit Glassmorphism */
@@ -154,6 +237,25 @@ nav ul li a:hover {
     padding: 25px;
     margin: 20px;
     transition: all 0.3s ease;
+    display: inline-block;
+    width: calc(33.333% - 40px);
+    min-width: 250px;
+    vertical-align: top;
+}
+
+.team-member img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid rgba(255, 76, 76, 0.3);
+    transition: all 0.3s ease;
+}
+
+.team-member:hover img {
+    transform: scale(1.1);
+    border-color: rgba(255, 76, 76, 0.8);
 }
 
 .team-member:hover {
@@ -172,4 +274,41 @@ footer {
     padding: 20px;
     margin-top: 40px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive Design Verbesserungen */
+@media (max-width: 768px) {
+    nav ul li {
+        margin: 5px 10px;
+    }
+    
+    .team-member {
+        width: calc(50% - 40px);
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .card {
+        margin: 10px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-member {
+        width: calc(100% - 40px);
+    }
+    
+    nav ul li a {
+        font-size: 1em;
+        padding: 6px 12px;
+    }
+    
+    .progress-bar {
+        width: 90%;
+    }
 }
