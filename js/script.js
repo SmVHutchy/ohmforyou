@@ -22,6 +22,39 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProgress();
     }
 
+    // Dark mode toggle
+    const darkToggle = document.getElementById('dark-toggle');
+    if (darkToggle) {
+        const applyMode = () => {
+            document.body.classList.toggle('dark', localStorage.getItem('darkMode') === 'true');
+        };
+        applyMode();
+        darkToggle.addEventListener('click', () => {
+            const enabled = document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', enabled);
+        });
+    }
+
+    // Header logo wave animation
+    const headerLogo = document.querySelector('header img');
+    if (headerLogo) {
+        headerLogo.classList.add('wave');
+    }
+
+    // Workshop sign-up form
+    const form = document.getElementById('signup-form');
+    if (form) {
+        const success = document.getElementById('signup-success');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (success) {
+                success.style.display = 'block';
+                setTimeout(() => { success.style.display = 'none'; }, 3000);
+            }
+            form.reset();
+        });
+    }
+
     // Scroll-to-Top Button
     const scrollTopBtn = document.querySelector('.scroll-top');
     if (scrollTopBtn) {
