@@ -34,6 +34,14 @@ body {
     position: relative;
     overflow-x: hidden;
 }
+h1, h2, h3 {
+    font-family: Raleway, Poppins, sans-serif;
+}
+
+input, select, button {
+    font-family: Nunito, Poppins, sans-serif;
+}
+
 
 body::before {
     content: '';
@@ -309,6 +317,85 @@ nav ul li a:hover {
 
 .scroll-top:hover {
     transform: translateY(-3px);
+
+/* Dark mode toggle button */
+.dark-toggle {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* Dark mode styles */
+body.dark {
+    background: var(--color-black);
+    color: var(--color-light);
+}
+
+body.dark nav,
+body.dark header,
+body.dark .card,
+body.dark footer,
+body.dark .progress-bar {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-light);
+}
+
+body.dark a {
+    color: var(--color-light);
+}
+
+/* Workshop Sign-Up Form */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 400px;
+}
+
+.signup-form input,
+.signup-form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--color-gray);
+}
+
+.signup-button {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.signup-button:hover {
+    transform: scale(1.05);
+}
+
+.success-message {
+    color: var(--color-primary);
+    font-weight: bold;
+    display: none;
+}
+
+/* Waving animation */
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+
+header img.wave {
+    animation: wave 1s ease-in-out;
+    transform-origin: bottom center;
+}
 }
 /* Footer mit Glassmorphism */
 footer {
