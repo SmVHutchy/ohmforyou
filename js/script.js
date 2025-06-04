@@ -1,59 +1,54 @@
-// Intersection Observer für Fade-In Effekte
-document.addEventListener("DOMContentLoaded", function() {
+// Intersection Observer und Scroll-Effekte
+document.addEventListener('DOMContentLoaded', () => {
     const elements = document.querySelectorAll('.fade-in');
-    
-    const options = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries, observer) => {
+    const options = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                obs.unobserve(entry.target);
             }
         });
     }, options);
+    elements.forEach(el => observer.observe(el));
 
-    elements.forEach(element => {
-        observer.observe(element);
-    });
-
-    // Progress Bar Animation
+    // Fortschrittsbalken Animation
     const progressBar = document.querySelector('.progress-fill');
     if (progressBar) {
         const updateProgress = () => {
-            const currentWidth = progressBar.style.width;
-            if (currentWidth !== '70%') {
-                progressBar.style.width = '0%';
-                setTimeout(() => {
-                    progressBar.style.width = '70%';
-                }, 300);
-            }
+            progressBar.style.width = '0%';
+            setTimeout(() => { progressBar.style.width = '70%'; }, 300);
         };
         updateProgress();
     }
 
-    // Smooth Scroll für Navigation Links
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                document.querySelector(href).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
+    // Scroll-to-Top Button
+    const scrollTopBtn = document.querySelector('.scroll-top');
+    if (scrollTopBtn) {
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    });
+    }
 });
 
-// Parallax Effekt für Header
+// Scroll-Effekte für Header und Navigation
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
+    const nav = document.querySelector('nav');
+    const scrollTopBtn = document.querySelector('.scroll-top');
+    const scroll = window.pageYOffset;
+
     if (header) {
-        const scroll = window.pageYOffset;
         header.style.transform = `translateY(${scroll * 0.4}px)`;
+    }
+    if (nav) {
+        nav.classList.toggle('scrolled', scroll > 50);
+    }
+    if (scrollTopBtn) {
+        if (scroll > 200) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
     }
 });
